@@ -15,6 +15,12 @@
 
 <h:form>
 <h:dataTable value="#{table.livros}" var="l" styleClass="tabela" headerClass="cabecalho" columnClasses="colNumero,colTitulo,colAutor,colEditora,colPaginas,colOp" rendered="#{table.livros.rowCount > 0}">
+	
+	<f:facet name="header">
+		Testando 123
+	</f:facet>
+	
+	
 	<f:facet name="header">
 		Lista de Livros
 	</f:facet>
