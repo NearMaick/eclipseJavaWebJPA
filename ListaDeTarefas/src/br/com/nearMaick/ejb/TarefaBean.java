@@ -1,8 +1,11 @@
 package br.com.nearMaick.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.com.nearMaick.model.Tarefa;
 
@@ -28,5 +31,10 @@ public class TarefaBean {
 		tarefa = carregar(tarefa.getId());
 		em.remove(tarefa);
 		
+	}
+	
+	public List<Tarefa> carregarTodos() {
+		TypedQuery<Tarefa> q = em.createQuery("SELECT t FROM Tarefa t ORDER BY t.prioridade", Tarefa.class);
+		return q.getResultList();
 	}
 }

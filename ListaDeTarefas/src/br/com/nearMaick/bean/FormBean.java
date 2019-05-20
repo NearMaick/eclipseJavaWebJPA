@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,7 +17,7 @@ import br.com.nearMaick.ejb.TarefaBean;
 import br.com.nearMaick.model.Tarefa;
 
 @Named("form")
-@SessionScoped
+@RequestScoped
 public class FormBean implements Serializable{
 	
 	@EJB
@@ -30,6 +31,17 @@ public class FormBean implements Serializable{
 	private Integer tarefaId;
 	
 	private Tarefa tarefa;
+	
+	
+	/**
+	 * Lista de tarefas
+	 */
+	private List<Tarefa> tarefasList = new ArrayList<>();
+	
+	public List<Tarefa> carregarTodos() {		
+		tarefasList = tarefaBean.carregarTodos();		
+		return tarefasList;
+	}
 	
 	public void gravar() {
 		if(tarefa.getId() == null) {
@@ -79,7 +91,12 @@ public class FormBean implements Serializable{
 
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
+	}	
+	
+	public List<Tarefa> getTarefasList() {
+		return tarefasList;
 	}
+
 	
 	
 	

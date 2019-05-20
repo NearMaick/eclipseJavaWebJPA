@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Lista de Tarefas</title>
+</h:head>
+
+<f:event listener="#{form.carregarTodos}" type="preRenderView" />
+
+<body>
+<h:outputStylesheet library="css" name="styles.css" />
+
+<h:form id="searchForm">
+	<h:panelGrid columns="3">
+		<f:facet name="header">Descrição</f:facet>
+			<h:inputText id="descricao" value="#{form.tarefa.descricao}" required="true" requiredMessage="Digite uma Descrição" />
+		
+		<f:facet name="header">Prioridade</f:facet>
+			<h:selectOneMenu id="prioridade" value="#{form.tarefa.prioridade}">
+				<f:selectItem itemValue="1" itemLabel="1" />
+				<f:selectItem itemValue="2" itemLabel="2" />
+				<f:selectItem itemValue="3" itemLabel="3" />
+			</h:selectOneMenu>
+		
+		<f:facet name="header">Concluída</f:facet>
+			<h:selectBooleanCheckbox value="#{form.tarefa.concluida}" />				
+	</h:panelGrid>
+	
+	<h:inputHidden value="#{form.tarefa.id}" />
+	
+	<br />
+	
+	<h:commandButton value="Gravar" action="#{form.gravar}" />
+	
+	<h:commandButton value="Excluir" action="#{form.excluir}" />	
+	
+</h:form>
+
+<br /> <hr /> <br /> <br />
+
+<h:form id="editForm">
+	
+	<table>
+		
+		<tr>
+			<th class="colDesc">Prioridade</th>
+			<th class ="colDesc">Tarefa</th>
+			<th class ="colDesc">Concluída?</th>
+		</tr>
+		
+		<ui:repeat value="#{form.tarefasList}" var="l" >	
+		<tr>
+			<td class="colNumero"><h:outputText value="#{l.prioridade}" /></td>
+			<td class ="colDesc"><h:outputText value="#{l.descricao}" /></td>
+			<td class ="colDesc"><h:selectBooleanCheckbox value="#{l.concluida}" /></td>
+		</tr>
+		
+		<br />	
+	
+		</ui:repeat>
+	</table>
+</h:form>
+
+</body>
+</html>
